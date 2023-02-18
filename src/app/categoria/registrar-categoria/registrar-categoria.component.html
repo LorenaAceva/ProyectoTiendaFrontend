@@ -1,0 +1,19 @@
+<div class="col-md-6 offset-md-3">
+    <h3 class="text-center">Nueva Categoria</h3>
+    <form (ngSubmit)="onSubmit()" #form="ngForm">
+        <div class="form-group">
+            <label>Id : </label>
+            <input type="number" class="form-control" [(ngModel)]="categoria.id_categoria" name="id_categoria" readonly="true">
+          </div>
+          
+        <div class="form-group">
+            <label for="cat_nombre">Nombre : </label>
+            <input type="text" class="form-control" [(ngModel)]="categoria.cat_nombre" name="cat_nombre">
+        </div>
+        <div class="form-group">
+            <label for="cat_descripcion">Descripción : </label>
+            <input type="text" class="form-control" [(ngModel)]="categoria.cat_descripcion" name="cat_descripcion">
+        </div>
+        <button class="btn btn-success" type="submit">Guardar</button>
+    </form>
+</div>
