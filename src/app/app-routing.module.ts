@@ -4,9 +4,9 @@ import { ListaCategoriasComponent } from './categoria/lista-categorias/lista-cat
 import { RegistrarCategoriaComponent } from './categoria/registrar-categoria/registrar-categoria.component';
 
 const routes: Routes = [
-  {path:'categorias',component:ListaCategoriasComponent},
-  {path:'',redirectTo:'categorias',pathMatch:'full'},
-  {path:'registro', component:RegistrarCategoriaComponent}
+  { path: 'categorias', component: ListaCategoriasComponent },
+  { path: '', redirectTo: 'categorias', pathMatch: 'full' },
+  { path: 'registrar-categoria', component: RegistrarCategoriaComponent } //ruta a l componente registrar-categoria
 
 ];
 

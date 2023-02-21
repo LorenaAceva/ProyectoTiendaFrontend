@@ -1,31 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../service/categoria.service';
 import { Categoria } from '../categoria';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-registrar-categoria',
   templateUrl: './registrar-categoria.component.html',
   styleUrls: ['./registrar-categoria.component.css']
 })
-export class RegistrarCategoriaComponent {
+export class RegistrarCategoriaComponent implements OnInit{
 
-  categoria: Categoria[] = [];
+  categoria: Categoria = { id_categoria: 0, cat_nombre: '', cat_descripcion: '' };
 
 
-  constructor(private conexion: CategoriaService, private router: Router) {
-    const dato: Observable<any> = this.conexion.RegistroCategorias("registro",this.categoria);
+  //categoria: Categoria[]=[];
+  constructor(private conexion: CategoriaService, private router: Router, private route: ActivatedRoute,private http: HttpClient) {
+    const dato: Observable<any> = this.conexion.RegistroCategorias("categorias/registro",this.categoria);
 
     dato.subscribe((resp: any) => {
 
-      this.categoria = resp as Categoria[];
+      if(resp.codigo==200){
+      this.categoria = resp as Categoria;
       console.log(this.categoria);
-
+    }
     })
 
   }
 
+  //Usamos el método ngOnInit para visualizar en los componentes antes de que se muestre en la vista
+  
+  ngOnInit():void{
+    
+  }
   /**
    * 
    * Método para guardar las categorias al registrar
@@ -35,9 +43,20 @@ export class RegistrarCategoriaComponent {
    */
 
   guardarCategoria() {
-    const categoriasString = JSON.stringify(this.categoria);
-    this.conexion.RegistroCategorias('registro',this.categoria).subscribe(dato => {
-      console.log(dato);
+    // const categoriasString = JSON.stringify(this.categoria);
+    // this.conexion.RegistroCategorias('categorias/registro', this.categoria).subscribe(dato => {
+    //   console.log(dato);
+    //   this.irInicio();
+    // });
+    const url = 'http://localhost:8080/categorias/registro';
+    const headers = new HttpHeaders()
+    .set('Content-Type', 'application/json');
+
+  const categoriaJson = JSON.stringify(this.categoria);
+
+  this.http.post(url, categoriaJson, { headers })
+    .subscribe((response) => {
+      console.log(response);
       this.irInicio();
     });
   }

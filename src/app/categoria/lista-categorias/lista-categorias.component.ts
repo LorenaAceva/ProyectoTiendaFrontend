@@ -18,9 +18,10 @@ export class ListaCategoriasComponent {
 
     dato.subscribe((resp: any) => {
 
-      this.categorias = resp as Categoria[];
-      console.log(this.categorias);
-
+      let stat:number = resp.status;      
+      if (stat==1){
+        this.categorias = resp.data as Categoria[];
+      }
     })
 
   }

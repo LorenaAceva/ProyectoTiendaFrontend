@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, share } from 'rxjs';
-import { Categoria } from '../categoria';
+
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class CategoriaService {
 
   //Con este método podremos actualizar las categorias
   PutCategorias(url: string, data: any): Observable<any> {
-    return this.http.put(this.API_URL + url).pipe(share());
+    return this.http.put(this.API_URL + url, data).pipe(share());
   }
 
   //Con este método eliminaremos las categorias
